@@ -29,39 +29,34 @@ if (process.env.BASE44_PREVIEW_MODE === "1" && process.env.PREVIEW_ORIGIN) {
 const dashboardPassword = process.env.DASHBOARD_PASSWORD || "";
 const apiToken = process.env.API_TOKEN || "";
 
+function resolveDir(value, fallback) {
+  return value ? path.resolve(value) : fallback;
+}
+
 module.exports = {
   BOT_NAME: "NORA MD",
   OWNER_NAME: "DHANI",
   PREFIX: ".",
 
+  // Presence the bot returns to on connect. "unavailable" = appear offline.
   DEFAULT_PRESENCE: "unavailable",
 
+  // Status automation defaults. Reactions are opt-in so the bot never reacts
+  // to a contact's status until the owner enables it.
   STATUS_VIEW: true,
-  STATUS_REACT: true,
+  STATUS_REACT: false,
+  DEFAULT_REACTION_EMOJI: "❤️",
 
-  REACTION_EMOJIS: [
-    "❤️",
-    "🔥",
-    "🧠",
-    "👊",
-    "🩶",
-    "💯",
-    "🫀",
-    "🙄",
-    "🥹",
-    "🤭",
-    "👀",
-    "🤝",
-    "🤍",
-    "🥹",
-    "💙"
-  ],
+  REACTION_EMOJIS: ["❤️", "🔥", "😂", "🥹", "💙"],
 
   PORT: process.env.PORT || 3000,
 
-  SESSION_DIR: process.env.SESSION_DIR
-    ? path.resolve(process.env.SESSION_DIR)
-    : path.join(__dirname, "session"),
+  SESSION_DIR: resolveDir(process.env.SESSION_DIR, path.join(__dirname, "session")),
+  DATA_DIR: resolveDir(process.env.DATA_DIR, path.join(__dirname, "data")),
+
+  // Optional: the owner's number in international format (digits only). When
+  // unset, the linked account itself is treated as the owner.
+  OWNER_NUMBER: (process.env.OWNER_NUMBER || "").replace(/\D/g, ""),
 
   ALLOWED_ORIGINS: allowedOrigins,
   DASHBOARD_PASSWORD: dashboardPassword,
@@ -77,6 +72,8 @@ module.exports = {
       .digest("hex"),
 
   PAIR_COOLDOWN_MS: Number(process.env.PAIR_COOLDOWN_MS || 30000),
+  PAIR_CODE_TTL_MS: Number(process.env.PAIR_CODE_TTL_MS || 180000),
+  PAIR_SOCKET_TIMEOUT_MS: Number(process.env.PAIR_SOCKET_TIMEOUT_MS || 20000),
   RECONNECT_BASE_DELAY: Number(process.env.RECONNECT_BASE_DELAY || 5000),
   RECONNECT_MAX_DELAY: Number(process.env.RECONNECT_MAX_DELAY || 60000)
 };

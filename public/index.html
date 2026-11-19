@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +49,7 @@
       <div class="section-heading">
         <span class="eyebrow">DEVICE CONNECTION</span>
         <h2>Connect Your <span>WhatsApp</span></h2>
-        <p>Securely link your device using a pairing code.</p>
+        <p>Securely link your device using a real pairing code.</p>
       </div>
 
       <div class="pair-card">
@@ -58,19 +57,33 @@
           <div class="connection-icon">✦</div>
           <div>
             <h3>NORA MD Connection</h3>
-            <p>WhatsApp pairing system</p>
+            <p>Live WhatsApp link status</p>
           </div>
           <div class="live-badge" id="connectionBadge">OFFLINE</div>
         </div>
 
-        <label for="phoneNumber">WHATSAPP PHONE NUMBER</label>
+        <div class="session-grid">
+          <div class="session-item">
+            <span>SESSION</span>
+            <strong id="sessionState">—</strong>
+          </div>
+          <div class="session-item">
+            <span>LINKED NUMBER</span>
+            <strong id="sessionNumber">—</strong>
+          </div>
+          <div class="session-item">
+            <span>UPTIME</span>
+            <strong id="sessionUptime">—</strong>
+          </div>
+          <div class="session-item">
+            <span>RECONNECTS</span>
+            <strong id="sessionReconnects">0</strong>
+          </div>
+        </div>
 
-        <input
-          id="phoneNumber"
-          type="tel"
-          placeholder="947XXXXXXXX"
-          autocomplete="tel"
-        >
+        <p class="session-note" id="sessionNote">
+          Reading the live state from the backend…
+        </p>
 
         <div class="auth-row" id="authRow" hidden>
           <label for="dashboardPassword">DASHBOARD PASSWORD</label>
@@ -87,28 +100,67 @@
           </div>
         </div>
 
-        <button id="pairButton" class="pair-button">
-          GENERATE PAIRING CODE
-          <span>→</span>
-        </button>
+        <div id="pairForm">
+          <label for="phoneNumber">WHATSAPP PHONE NUMBER</label>
 
-        <div class="code-result" id="codeResult" hidden>
-          <p>YOUR PAIRING CODE</p>
-          <div id="pairCode">--------</div>
-          <button id="copyButton" class="copy-button">
-            COPY CODE
+          <input
+            id="phoneNumber"
+            type="tel"
+            inputmode="numeric"
+            placeholder="947XXXXXXXX"
+            autocomplete="tel"
+          >
+
+          <button id="pairButton" class="pair-button" type="button">
+            PAIR WHATSAPP
+            <span>→</span>
+          </button>
+
+          <div class="code-result" id="codeResult" hidden>
+            <p>YOUR PAIRING CODE</p>
+            <div id="pairCode">--------</div>
+            <button id="copyButton" class="copy-button" type="button">
+              COPY CODE
+            </button>
+            <p class="code-timer" id="codeTimer"></p>
+          </div>
+
+          <p class="pair-help" id="pairMessage">
+            Enter your number with country code, then press Pair WhatsApp.
+          </p>
+        </div>
+
+        <div id="linkedActions" class="linked-actions" hidden>
+          <p class="pair-help" id="linkedMessage">
+            A linked session is stored on this server.
+          </p>
+          <button id="reconnectButton" class="pair-button" type="button">
+            RECONNECT WHATSAPP
+            <span>↻</span>
           </button>
         </div>
 
-        <p class="pair-help" id="pairMessage">
-          Enter your number with country code.
-        </p>
+        <details class="danger-zone" id="resetZone" hidden>
+          <summary>Reset WhatsApp session</summary>
+          <p>
+            The stored session is copied to a backup first, then removed so you can
+            pair again. Nothing is deleted without this confirmation. Requires the
+            dashboard password to be configured on the backend.
+          </p>
+          <label for="resetConfirm">TYPE RESET TO CONFIRM</label>
+          <div class="auth-input-row">
+            <input id="resetConfirm" type="text" placeholder="RESET" autocomplete="off">
+            <button id="resetButton" class="copy-button danger" type="button">
+              RESET
+            </button>
+          </div>
+        </details>
 
         <div class="instructions">
           <div><span>01</span> Open WhatsApp on your phone.</div>
           <div><span>02</span> Go to Linked Devices.</div>
           <div><span>03</span> Select Link with phone number.</div>
-          <div><span>04</span> Enter your pairing code.</div>
+          <div><span>04</span> Enter the 8-digit code shown above.</div>
         </div>
       </div>
     </section>
@@ -129,36 +181,90 @@
         <article class="feature-card">
           <div class="feature-icon">♡</div>
           <h3>Smart Reactions</h3>
-          <p>Multiple configurable emoji reactions.</p>
+          <p>Configurable emoji reactions, without duplicates.</p>
         </article>
 
         <article class="feature-card">
           <div class="feature-icon">▧</div>
           <h3>Media Saver</h3>
-          <p>Save accessible status media to your bot chat.</p>
+          <p>Save accessible media from a message you reply to.</p>
         </article>
 
         <article class="feature-card">
           <div class="feature-icon">◈</div>
           <h3>Privacy Control</h3>
-          <p>Manage online presence and connection settings.</p>
+          <p>Manage presence and respect WhatsApp privacy rules.</p>
         </article>
       </div>
     </section>
 
-    <section class="commands">
+    <section class="automation" id="automation">
+      <div class="section-heading">
+        <span class="eyebrow">STATUS AUTOMATION</span>
+        <h2>Quietly <span>Automatic</span></h2>
+        <p>Controls apply to the linked WhatsApp account immediately.</p>
+      </div>
+
+      <div class="automation-card">
+        <div class="toggle-row">
+          <div>
+            <h4>Auto view statuses</h4>
+            <p>Mark contacts' statuses as viewed.</p>
+          </div>
+          <button
+            class="switch"
+            id="toggleView"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-label="Auto view statuses"
+          ></button>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <h4>Auto react to statuses</h4>
+            <p>React with your chosen emoji, once per status.</p>
+          </div>
+          <button
+            class="switch"
+            id="toggleReact"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-label="Auto react to statuses"
+          ></button>
+        </div>
+
+        <div class="emoji-row">
+          <span>REACTION EMOJI</span>
+          <div class="emoji-picker" id="emojiPicker"></div>
+        </div>
+
+        <div class="presence-row">
+          <span>PRESENCE</span>
+          <div class="segmented" id="presencePicker">
+            <button type="button" data-presence="unavailable">OFFLINE</button>
+            <button type="button" data-presence="available">ONLINE</button>
+          </div>
+        </div>
+
+        <p class="pair-help" id="settingsMessage">
+          Settings are stored on the backend, never in the browser.
+        </p>
+      </div>
+    </section>
+
+    <section class="commands" id="commands">
       <span class="eyebrow">COMMAND CENTER</span>
       <h2>Simple. <span>Powerful.</span></h2>
+      <p class="command-intro">
+        Every command works in WhatsApp with the <code>.</code> prefix.
+        Owner-only commands are marked.
+      </p>
 
-      <div class="command-list">
-        <code>.menu</code>
-        <code>.status</code>
-        <code>.getdp</code>
-        <code>.save</code>
-        <code>.vv</code>
-        <code>.online</code>
-        <code>.offline</code>
-        <code>.ping</code>
+      <div class="doc-grid" id="commandDocs">
+        <p class="doc-loading">Loading the command list from the backend…</p>
       </div>
     </section>
   </main>
@@ -168,6 +274,8 @@
     <p>Designed with precision. Powered by DHANI.</p>
     <p class="copyright">© 2026 NORA MD. All rights reserved.</p>
   </footer>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
 
   <script src="config.js"></script>
   <script src="script.js"></script>
