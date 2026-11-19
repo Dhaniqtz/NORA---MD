@@ -1,0 +1,20 @@
+
+{
+  "name": "nora-md",
+  "version": "1.0.0",
+  "description": "NORA MD WhatsApp Automation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.20",
+    "express": "^4.21.2",
+    "pino": "^9.6.0",
+    "dotenv": "^16.4.7"
+  }
+}
