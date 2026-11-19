@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05080d">
+  <title>NORA MD | WhatsApp Automation</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="glow glow-one"></div>
+  <div class="glow glow-two"></div>
+
+  <header class="navbar">
+    <a href="#" class="logo">
+      <span class="logo-icon">N</span>
+      NORA <span>MD</span>
+    </a>
+
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span id="navStatus">OFFLINE</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-tag">
+        <span></span> NEXT GENERATION WHATSAPP BOT
+      </div>
+
+      <h1>NORA <span>MD</span></h1>
+      <p class="subtitle">A smarter way to automate WhatsApp.</p>
+      <p class="description">
+        Experience a clean, powerful and intelligent
+        WhatsApp automation system.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pair" class="primary-btn">Connect WhatsApp ↗</a>
+        <a href="#features" class="secondary-btn">Explore Features</a>
+      </div>
+    </section>
+
+    <section class="pair-section" id="pair">
+      <div class="section-heading">
+        <span class="eyebrow">DEVICE CONNECTION</span>
+        <h2>Connect Your <span>WhatsApp</span></h2>
+        <p>Securely link your device using a pairing code.</p>
+      </div>
+
+      <div class="pair-card">
+        <div class="card-top">
+          <div class="connection-icon">✦</div>
+          <div>
+            <h3>NORA MD Connection</h3>
+            <p>WhatsApp pairing system</p>
+          </div>
+          <div class="live-badge" id="connectionBadge">OFFLINE</div>
+        </div>
+
+        <label for="phoneNumber">WHATSAPP PHONE NUMBER</label>
+
+        <input
+          id="phoneNumber"
+          type="tel"
+          placeholder="947XXXXXXXX"
+          autocomplete="tel"
+        >
+
+        <button id="pairButton" class="pair-button">
+          GENERATE PAIRING CODE
+          <span>→</span>
+        </button>
+
+        <div class="code-result" id="codeResult" hidden>
+          <p>YOUR PAIRING CODE</p>
+          <div id="pairCode">--------</div>
+          <button id="copyButton" class="copy-button">
+            COPY CODE
+          </button>
+        </div>
+
+        <p class="pair-help" id="pairMessage">
+          Enter your number with country code.
+        </p>
+
+        <div class="instructions">
+          <div><span>01</span> Open WhatsApp on your phone.</div>
+          <div><span>02</span> Go to Linked Devices.</div>
+          <div><span>03</span> Select Link with phone number.</div>
+          <div><span>04</span> Enter your pairing code.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-heading">
+        <span class="eyebrow">WHAT WE OFFER</span>
+        <h2>Powerful <span>Features</span></h2>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">◉</div>
+          <h3>Status Viewer</h3>
+          <p>Automatic viewing of accessible WhatsApp statuses.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">♡</div>
+          <h3>Smart Reactions</h3>
+          <p>Multiple configurable emoji reactions.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">▧</div>
+          <h3>Media Saver</h3>
+          <p>Save accessible status media to your bot chat.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">◈</div>
+          <h3>Privacy Control</h3>
+          <p>Manage online presence and connection settings.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="commands">
+      <span class="eyebrow">COMMAND CENTER</span>
+      <h2>Simple. <span>Powerful.</span></h2>
+
+      <div class="command-list">
+        <code>.menu</code>
+        <code>.status</code>
+        <code>.getdp</code>
+        <code>.save</code>
+        <code>.vv</code>
+        <code>.online</code>
+        <code>.offline</code>
+        <code>.ping</code>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">NORA <span>MD</span></div>
+    <p>Designed with precision. Powered by DHANI.</p>
+    <p class="copyright">© 2026 NORA MD. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
