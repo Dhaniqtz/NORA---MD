@@ -415,6 +415,67 @@ footer p {
   margin-top: 25px;
 }
 
+/* Connection states */
+.status-dot[data-state="online"] {
+  background: #75e6ae;
+  box-shadow: 0 0 10px rgba(117, 230, 174, .7);
+}
+
+.status-dot[data-state="connecting"],
+.status-dot[data-state="reconnecting"] {
+  background: var(--blue);
+  animation: statusPulse 1.4s ease-in-out infinite;
+}
+
+.status-dot[data-state="unknown"] {
+  background: var(--muted);
+}
+
+.live-badge[data-state="online"] {
+  color: #75e6ae;
+  border-color: rgba(117, 230, 174, .35);
+}
+
+.live-badge[data-state="connecting"],
+.live-badge[data-state="reconnecting"] {
+  color: var(--blue);
+  border-color: rgba(128, 223, 255, .4);
+}
+
+.live-badge[data-state="unknown"] {
+  color: var(--muted);
+  border-color: rgba(132, 147, 165, .3);
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+
+/* Dashboard unlock */
+.auth-row {
+  margin-top: 18px;
+}
+
+.auth-input-row {
+  display: flex;
+  gap: 9px;
+}
+
+.auth-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.auth-input-row .copy-button {
+  white-space: nowrap;
+}
+
+.auth-input-row .copy-button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
 @media(max-width: 600px) {
   .hero {
     padding: 90px 18px;
